@@ -1,34 +1,49 @@
-const mainButton = document.querySelector('button[name="mainButton"]');
-const randomButton = document.querySelector('button[name="randomButton"]');
-mainButton.onclick = () =>{
-    document.body.style.background = 'red';
-};
-randomButton.onclick = () =>{
-    const r = Math.round(Math.random()*255);
-    const g = Math.round(Math.random()*255);
-    const b = Math.round(Math.random()*255);
-    document.body.style.background = `rgb(${r},${g},${b})`;
-};
+const userGajah = document.querySelector('.gajah');
+const userOrang = document.querySelector('.orang');
+const userSemut = document.querySelector('.semut');
+const compImage = document.querySelector('.img-komputer');
+const infoPanel = document.querySelector('.info');
 
-const redRange = document.querySelector('input[name="redRange"]');
-const greenRange = document.querySelector('input[name="greenRange"]');
-const blueRange = document.querySelector('input[name="blueRange"]');
+userGajah.addEventListener('click', () => {
+    const comp = getComputerSelection();
+    const user = userGajah.className;
+    const result = getRules(user, comp);
+    compImage.setAttribute('src', 'img/'+ comp +'.png');
+    infoPanel.innerHTML =  result;
+});
+userOrang.addEventListener('click', () => {
+    const comp = getComputerSelection();
+    const user = userOrang.className;
+    const result = getRules(user, comp);
+    compImage.setAttribute('src', 'img/'+ comp +'.png');
+    infoPanel.innerHTML =  result;
+});
+userSemut.addEventListener('click', () => {
+    const comp = getComputerSelection();
+    const user = userSemut.className;
+    const result = getRules(user, comp);
+    compImage.setAttribute('src', 'img/'+ comp +'.png');
+    infoPanel.innerHTML =  result;
+});
 
-redRange.addEventListener('input', () => {
-    const r = redRange.value;
-    const g = greenRange.value;
-    const b = blueRange.value;
-    document.body.style.background = `rgb(${r},${g},${b})`;
-});
-greenRange.addEventListener('input', () => {
-    const r = redRange.value;
-    const g = greenRange.value;
-    const b = blueRange.value;
-    document.body.style.background = `rgb(${r},${g},${b})`;
-});
-blueRange.addEventListener('input', () => {
-    const r = redRange.value;
-    const g = greenRange.value;
-    const b = blueRange.value;
-    document.body.style.background = `rgb(${r},${g},${b})`;
-});
+
+
+function getComputerSelection() {
+    var computer = Math.random();
+    if (computer < 0.34) {
+        return 'gajah';
+    } else if (computer >= 0.34 && computer < 0.67) {
+        return 'orang';
+    } else {
+        return 'semut';
+    }
+}
+
+
+function getRules(user, comp){
+    if (user == comp) return 'SERI!';
+    if (user == 'gajah') return (comp == 'orang') ? 'MENANG!' : 'KALAH!';
+    if (user == 'orang') return (comp == 'gajah') ? 'KALAH!' : 'MENANG!';
+    if (user == 'semut') return (comp == 'orang') ? 'KALAH' : 'MENANG!';
+    return false;
+}
